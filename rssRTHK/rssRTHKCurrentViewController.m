@@ -67,6 +67,7 @@
     
 }
 
+
 - (void)refreshFeed
 {
     if (_feeds.count == 0) {
@@ -74,6 +75,8 @@
     } else {
         [self feedData];
     }
+    NSLog(@"section: %lu", [_fetchedResultsController.fetchedObjects count]);
+
 }
 
 - (void)feedData
@@ -133,6 +136,15 @@
     
     if ([feed.feedTitle length] > 0) {
         feedcell.feedTitleLabel.text = feed.feedTitle;
+        
+        // NSDateFormatter *dateformatter = [[NSDateFormatter alloc] init];
+        // [dateformatter setDateFormat:@"EEE, dd MMM yyy HH:mm:ss Z"];
+        
+        // NSDate *date1 = [[NSDate alloc] init];
+        // date1 = [dateformatter dateFromString:feed.feedPubDate];
+        
+        // NSLog(@"date: %@", [dateformatter stringFromDate:feed.feedDate]);
+        
     } else {
         feedcell.feedTitleLabel.text = @"(No News)";
     }
@@ -248,8 +260,6 @@
         [_item setObject:_description forKey:@"description"];
         [_item setObject:_pubDate forKey:@"pubDate"];
         [_feeds addObject:[_item copy]];
-        
-        
     }
 }
 
@@ -312,7 +322,15 @@
     feed.feedDescription = [[rxFeed objectAtIndex:index] objectForKey:@"description"];
     feed.feedPubDate = [[rxFeed objectAtIndex:index] objectForKey:@"pubDate"];
     feed.feedLink = [[rxFeed objectAtIndex:index] objectForKey:@"link"];
-    feed.feedDate = [NSDate date];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss Z"];
+    NSDate *date1 = [[NSDate alloc] init];
+    date1 = [dateFormatter dateFromString:feed.feedPubDate];
+    
+    feed.feedDate = date1;
+    // NSLog(@"Date: %@", [dateFormatter stringFromDate:date1]);
+    
     
     NSError *error;
     if (![self.managedObjectContext save:&error]) {
