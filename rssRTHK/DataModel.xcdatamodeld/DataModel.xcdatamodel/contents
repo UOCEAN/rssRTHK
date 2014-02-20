@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13B42" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Feed" representedClassName="Feed" syncable="YES">
+        <attribute name="feedDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="feedDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="feedLink" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="feedPubDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="feedTitle" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Feed" positionX="0" positionY="0" width="0" height="0"/>
+    </elements>
+</model>
