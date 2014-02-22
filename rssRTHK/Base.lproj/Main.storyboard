@@ -46,19 +46,19 @@
         <scene sceneID="J4u-Pm-S2g">
             <objects>
                 <tableViewController id="OSO-WK-Fpz" customClass="rssRTHKCurrentViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="bev-d1-YMr">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="DE6-h2-o93">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Feed" id="E04-ln-uVK" customClass="FeedCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Feed" id="HgZ-x7-b8k" customClass="FeedCell">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="E04-ln-uVK" id="muO-LX-aFd">
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HgZ-x7-b8k" id="22n-tU-4vR">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UYJ-n2-5oo">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="und-kl-0Zu">
                                             <rect key="frame" x="20" y="11" width="280" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -68,13 +68,14 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="feedTitleLabel" destination="UYJ-n2-5oo" id="Deh-IE-RIp"/>
+                                    <outlet property="feedTitleLable" destination="und-kl-0Zu" id="HEc-7M-ofW"/>
+                                    <segue destination="qNd-SU-cCF" kind="modal" identifier="Description" id="BYJ-s3-JNX"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="OSO-WK-Fpz" id="mZF-tB-XsT"/>
-                            <outlet property="delegate" destination="OSO-WK-Fpz" id="T8W-5S-mlp"/>
+                            <outlet property="dataSource" destination="OSO-WK-Fpz" id="iuV-rz-M8k"/>
+                            <outlet property="delegate" destination="OSO-WK-Fpz" id="dfQ-cb-n0Z"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="RTHK RSS Feeds" id="qzF-tA-qQ9"/>
@@ -82,6 +83,68 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MFs-e0-g0H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1099" y="-138"/>
+        </scene>
+        <!--RssRTHK Desc View Controller - Feed Description-->
+        <scene sceneID="K8Y-gb-f9T">
+            <objects>
+                <tableViewController id="V0N-ZD-mO3" customClass="rssRTHKDescViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="450" sectionHeaderHeight="22" sectionFooterHeight="22" id="Z6w-XD-8hM">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections>
+                            <tableViewSection id="i2i-fQ-Ao8">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="WiG-z6-5V1">
+                                        <rect key="frame" x="0.0" y="64" width="320" height="450"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WiG-z6-5V1" id="war-uM-Zq9">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="449"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="(Description + pubDate)" translatesAutoresizingMaskIntoConstraints="NO" id="pRH-A6-Ufr">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="449"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Feed Description" id="mWw-Y0-6uZ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="iid-RG-m1v">
+                            <connections>
+                                <action selector="btnDone:" destination="V0N-ZD-mO3" id="rCa-TF-4g3"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="descText" destination="pRH-A6-Ufr" id="XAU-wl-fUN"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="akr-po-DL7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2106" y="-138"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="uRg-p0-aIL">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="qNd-SU-cCF" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="xsi-yB-SVe">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="V0N-ZD-mO3" kind="relationship" relationship="rootViewController" id="17z-u1-h2m"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NUC-RB-fV2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1572" y="-138"/>
         </scene>
         <!--Navigation Controller - History-->
         <scene sceneID="45R-Ru-7HO">
