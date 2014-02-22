@@ -42,7 +42,7 @@
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"Feed" inManagedObjectContext:self.managedObjectContext];
         [fetchRequest setEntity:entity];
         
-        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"feedDate" ascending:YES];
+        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"feedDate" ascending:NO];
         [fetchRequest setSortDescriptors:@[sortDescriptor]];
         
         [fetchRequest setFetchBatchSize:20];
@@ -277,79 +277,72 @@
 }
 
 - (void)parserDidEndDocument:(NSXMLParser *)parser {
-    // finish loading feed
-    // NSLog(@"no of feeds: %lu", _feeds.count);
-    
-    // NSMutableDictionary *item;
-    // item = [[NSMutableDictionary alloc] init];
-    
-    if (_OldFeeds.count !=0) {
-        NSMutableDictionary *laItem;
-        laItem = [[NSMutableDictionary alloc] init];
-        laItem = [_OldFeeds firstObject];
-        
-        NSString *lastFirstPubDate = [laItem objectForKey:@"pubDate"];
-        NSString *thisFirstPubDate = [[_feeds firstObject] objectForKey:@"pubDate"];
-        NSString *thisPubDate;
-        
-        if ([lastFirstPubDate isEqualToString:thisFirstPubDate]) {
-            NSLog(@"feed nil change");
-        } else {
-            NSLog(@"feed updated");
-            
-            
-            NSUInteger count = 0;
-            for (id object in _feeds)
-            {
-                count++;
-                thisPubDate = [object objectForKey:@"pubDate"];
-                NSLog(@"count: %lu, lastPubDate: %@, thisPubDate: %@", count, lastFirstPubDate, thisPubDate);
-                
-                if ([lastFirstPubDate isEqualToString:thisPubDate]) {
-                    NSLog(@"feed found");
-                    break;
-                } else {
-                    [_OldFeeds insertObject:object atIndex:0];
-                    [self UpdateSQLite:_OldFeeds atIndex:_OldFeeds.count-1];
-                }
-            };
-        }
+  // finish loading feed
+  
+  NSLog(@"SQLite no of objects: %lu", [self.fetchedResultsController.fetchedObjects count]);
+  if ([self.fetchedResultsController.fetchedObjects count] > 0) {
+    // last object in SQLite
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    Feed *feed = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    NSString *dbLastPubDate = feed.feedPubDate;
+    NSLog(@"first db pubDate: %@", dbLastPubDate);
+  
+    NSInteger i=0;
+    NSInteger j=0;
+    NSString *lastPubDate;
+    for (id object in _feeds)
+    {
+      lastPubDate = [object objectForKey:@"pubDate"];
+      if ([lastPubDate isEqualToString:dbLastPubDate]) {
+        // NSLog(@"found equal feed at: %lu", i);
+        break;
+      }
+      i++;
+    }
+  
+    if (i>=0 && i < _feeds.count) {
+      NSLog(@"found equal feed at: %lu", i);
     } else {
-        for (id object in _feeds)
-        {
-            [_OldFeeds addObject:[object copy]];
-            [self UpdateSQLite:_OldFeeds atIndex:_OldFeeds.count-1];
-        };
-        [self.tableView reloadData];
-        NSLog(@"first");
-        return;
-    };
-    [self.tableView reloadData];
-    
+      NSLog(@"not found equal feed: %lu", i);
+    }
+  
+    for (id object in _feeds) {
+      if (j < i) {
+        [self UpdateSQLite:object];
+        j++;
+      }
+    }
+  } else {
+    for (id object in _feeds) {
+      [self UpdateSQLite:object];
+    }
+  }
+  [self.tableView reloadData];
 }
 
-- (void)UpdateSQLite:(NSMutableArray *)rxFeed atIndex:(NSUInteger)index
+- (void)UpdateSQLite:(NSMutableDictionary *)rxFeed
 {
-    Feed *feed = [NSEntityDescription insertNewObjectForEntityForName:@"Feed" inManagedObjectContext:self.managedObjectContext];
-    feed.feedTitle = [[rxFeed objectAtIndex:index] objectForKey:@"title"];
-    feed.feedDescription = [[rxFeed objectAtIndex:index] objectForKey:@"description"];
-    feed.feedPubDate = [[rxFeed objectAtIndex:index] objectForKey:@"pubDate"];
-    feed.feedLink = [[rxFeed objectAtIndex:index] objectForKey:@"link"];
+  Feed *feed = [NSEntityDescription insertNewObjectForEntityForName:@"Feed" inManagedObjectContext:self.managedObjectContext];
+  
+  feed.feedTitle = [rxFeed  objectForKey:@"title"];
+  feed.feedDescription = [rxFeed  objectForKey:@"description"];
+  feed.feedPubDate = [rxFeed objectForKey:@"pubDate"];
+  feed.feedLink = [rxFeed objectForKey:@"link"];
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss Z"];
-    NSDate *date1 = [[NSDate alloc] init];
-    date1 = [dateFormatter dateFromString:feed.feedPubDate];
+  NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+  [dateFormatter setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss Z"];
+  NSDate *date1 = [[NSDate alloc] init];
+  date1 = [dateFormatter dateFromString:feed.feedPubDate];
     
-    feed.feedDate = date1;
-    // NSLog(@"Date: %@", [dateFormatter stringFromDate:date1]);
+  feed.feedDate = date1;
+  // NSLog(@"Date: %@", [dateFormatter stringFromDate:date1]);
     
     
-    NSError *error;
-    if (![self.managedObjectContext save:&error]) {
-        NSLog(@"Error: %@", error);
-        abort();
-    }
+  NSError *error;
+  if (![self.managedObjectContext save:&error]) {
+      NSLog(@"Error: %@", error);
+      abort();
+  }
 }
 
 
