@@ -26,6 +26,7 @@
 		5C89D4EE18B4A1690002A8AE /* Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C89D4ED18B4A1690002A8AE /* Feed.m */; };
 		5C89D4F018B4A1C80002A8AE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C89D4EF18B4A1C80002A8AE /* CoreData.framework */; };
 		5C89D4F318B4AB810002A8AE /* FeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C89D4F218B4AB810002A8AE /* FeedCell.m */; };
+		5C998EE918B798D0009F1228 /* rssRTHKDescViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C998EE818B798D0009F1228 /* rssRTHKDescViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,8 @@
 		5C89D4EF18B4A1C80002A8AE /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		5C89D4F118B4AB810002A8AE /* FeedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedCell.h; sourceTree = "<group>"; };
 		5C89D4F218B4AB810002A8AE /* FeedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedCell.m; sourceTree = "<group>"; };
+		5C998EE718B798D0009F1228 /* rssRTHKDescViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rssRTHKDescViewController.h; sourceTree = "<group>"; };
+		5C998EE818B798D0009F1228 /* rssRTHKDescViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rssRTHKDescViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +138,8 @@
 				5C89D4C018B49AEF0002A8AE /* rssRTHKAppDelegate.h */,
 				5C89D4C118B49AEF0002A8AE /* rssRTHKAppDelegate.m */,
 				5C89D4C318B49AEF0002A8AE /* Main.storyboard */,
+				5C998EE718B798D0009F1228 /* rssRTHKDescViewController.h */,
+				5C998EE818B798D0009F1228 /* rssRTHKDescViewController.m */,
 				5C89D4C618B49AEF0002A8AE /* rssRTHKCurrentViewController.h */,
 				5C89D4C718B49AEF0002A8AE /* rssRTHKCurrentViewController.m */,
 				5C89D4C918B49AEF0002A8AE /* rssRTHKPastViewController.h */,
@@ -277,6 +282,7 @@
 				5C89D4F318B4AB810002A8AE /* FeedCell.m in Sources */,
 				5C89D4C218B49AEF0002A8AE /* rssRTHKAppDelegate.m in Sources */,
 				5C89D4EE18B4A1690002A8AE /* Feed.m in Sources */,
+				5C998EE918B798D0009F1228 /* rssRTHKDescViewController.m in Sources */,
 				5C89D4C818B49AEF0002A8AE /* rssRTHKCurrentViewController.m in Sources */,
 				5C89D4BE18B49AEF0002A8AE /* main.m in Sources */,
 			);
