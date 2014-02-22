@@ -7,6 +7,7 @@
 //
 
 #import "rssRTHKCurrentViewController.h"
+#import "rssRTHKDescViewController.h"
 #import "Feed.h"
 #import "FeedCell.h"
 
@@ -122,39 +123,51 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+  if ([segue.identifier isEqualToString:@"Description"]) {
+    UINavigationController *navigationController = segue.destinationViewController;
+    rssRTHKDescViewController *controller = (rssRTHKDescViewController *)navigationController.topViewController;
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+    
+    Feed *feed = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    controller.descShow = feed.feedDescription;
+    controller.pubDateShow = feed.feedPubDate;
+  }
+}
+
+
 #pragma mark - table source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
-    return [sectionInfo numberOfObjects];
-}
-
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
-{
-    FeedCell *feedcell = (FeedCell *)cell;
-    Feed *feed = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    
-    if ([feed.feedTitle length] > 0) {
-        feedcell.feedTitleLabel.text = feed.feedTitle;
-        
-        // NSDateFormatter *dateformatter = [[NSDateFormatter alloc] init];
-        // [dateformatter setDateFormat:@"EEE, dd MMM yyy HH:mm:ss Z"];
-        
-        // NSDate *date1 = [[NSDate alloc] init];
-        // date1 = [dateformatter dateFromString:feed.feedPubDate];
-        
-        // NSLog(@"date: %@", [dateformatter stringFromDate:feed.feedDate]);
-        
-    } else {
-        feedcell.feedTitleLabel.text = @"(No News)";
-    }
+  id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
+  return [sectionInfo numberOfObjects];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Feed"];
-    [self configureCell:cell atIndexPath:indexPath];
-    return cell;
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Feed"];
+  [self configureCell:cell atIndexPath:indexPath];
+  return cell;
+}
+
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+  FeedCell *feedCell = (FeedCell *)cell;
+  
+  Feed *feed = [self.fetchedResultsController objectAtIndexPath:indexPath];
+  // UILabel *label = (UILabel *)[cell viewWithTag:100];
+
+  // NSInteger currentRow = indexPath.row;
+  // NSLog(@"configureCell at index: %lu", currentRow );
+  
+  if ([feed.feedTitle length] > 0) {
+    feedCell.feedTitleLable.text = feed.feedTitle;
+  } else {
+    feedCell.feedTitleLable.text = @"(No feed)";
+  }
 }
 
 
