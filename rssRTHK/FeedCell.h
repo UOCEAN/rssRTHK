@@ -10,6 +10,6 @@
 
 @interface FeedCell : UITableViewCell
 
-@property (nonatomic, weak) IBOutlet UILabel *feedTitleLabel;
+@property (nonatomic, weak) IBOutlet UILabel *feedTitleLable;
 
 @end
